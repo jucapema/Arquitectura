@@ -54,7 +54,7 @@ BEGIN
 		op3 <= "000011" ;
 		wait for 100 ns;
 		op3 <= "000111" ;
-		
+		wait for 100 ns;
 		wait;
    end process;
 END;
