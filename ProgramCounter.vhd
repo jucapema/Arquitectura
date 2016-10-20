@@ -13,7 +13,7 @@ end ProgramCounter;
 architecture Behavioral of ProgramCounter is
 
 begin
-
+--dice cual es la instruccion actual 
 process (clk, rst, pc_int)
 	begin
 		if (rst = '1') then

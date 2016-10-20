@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity Procesador is
     Port ( clk : in  STD_LOGIC;
            reset  : in  STD_LOGIC;
-           Alu : out  STD_LOGIC_VECTOR (31 downto 0));
+           ALUPU : out  STD_LOGIC_VECTOR (31 downto 0));
 end Procesador;
 
 architecture Behavioral of Procesador is
@@ -43,7 +43,7 @@ COMPONENT IMemory
 COMPONENT CU
 	Port (Op : in  STD_LOGIC_VECTOR (1 downto 0);
          Op3 : in  STD_LOGIC_VECTOR (5 downto 0);
-         CU_out : out  STD_LOGIC_VECTOR (5 downto 0)
+         CU_out : out  STD_LOGIC_VECTOR (3 downto 0)
 			);
 			END COMPONENT ;
 			
@@ -59,7 +59,7 @@ COMPONENT RegFile
 			  END COMPONENT ;
 			  
 COMPONENT ALU
-	Port (  ALUOp : in  STD_LOGIC_VECTOR (5 downto 0);
+	Port (  ALUOp : in  STD_LOGIC_VECTOR (3 downto 0);
            x : in  STD_LOGIC_VECTOR (31 downto 0);
            y : in  STD_LOGIC_VECTOR (31 downto 0);
            ALUResult : out  STD_LOGIC_VECTOR (31 downto 0)
@@ -81,7 +81,7 @@ COMPONENT Multi_32b
 				END COMPONENT ;
 
 	signal suma_out, nPC_out, PC_out, IM_out, CRs1, CRs2, AluResult, SEU_out, MUX_out : std_logic_vector(31 downto 0);
-	signal CU_Out : std_logic_vector(3 downto 0);
+	signal cu_out : std_logic_vector(3 downto 0);
 
 begin
 		Inst_nPc: npc PORT MAP(
@@ -93,7 +93,7 @@ begin
 									  
 	   Inst_PC: ProgramCounter PORT MAP (
 										pc_int => nPC_out,
-										rst => reset, -- duda
+										rst => reset,
 										clk => clk,
 										pc_out => PC_out 
 										);				
@@ -115,7 +115,7 @@ begin
 		Inst_CU: CU PORT MAP (
 										op => IM_out(31 downto 30),
 										op3 => IM_out (24 downto 19),
-										CU_out => CU_Out
+										CU_out => cu_out
 										);
 
 
@@ -137,21 +137,21 @@ begin
 		Inst_Mux: Multi_32b PORT MAP (
 											mul_int1 =>  CRs2,
 											mul_int2 =>  SEU_out,
-											clk_mul =>   MUX_out,
-											mul_out =>  IM_out(13) 
+											mul_out =>   MUX_out,
+										   clk_mul =>  IM_out(13) 
 											);
 											
 
 											
 		Inst_Alu: ALU PORT MAP (
-											 ALUOp => CRs1,
-											 x => MUX_out,
-											 y => CU_out,
+											 x => CRs1,
+											 y => MUX_out,
+											 ALUOp => cu_out,
 											 ALUResult => AluResult
 											 );
 											
 											
-		ALUResult <= AluResult;
+		ALUPU <= AluResult;
 											
 											
 end Behavioral;

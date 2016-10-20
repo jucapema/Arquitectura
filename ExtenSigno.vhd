@@ -9,7 +9,7 @@ end ExtenSigno;
 architecture Behavioral of ExtenSigno is
 
 begin
-
+--extencion de signo , si el ultimo termina 0 rellena todos los numeros a la izq lo mismo en 1 todo a la izq en 1
 process (Inmediato)
 	begin
 		Out_Exten(12 downto 0) <= Inmediato;

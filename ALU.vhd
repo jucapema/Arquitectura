@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity ALU is
-    Port ( ALUOp : in  STD_LOGIC_VECTOR (5 downto 0);
+    Port ( ALUOp : in  STD_LOGIC_VECTOR (3 downto 0);
            x : in  STD_LOGIC_VECTOR (31 downto 0);
            y : in  STD_LOGIC_VECTOR (31 downto 0);
            ALUResult : out  STD_LOGIC_VECTOR (31 downto 0));
@@ -19,21 +19,21 @@ begin
 	begin
 	   case (ALUOp) is 
 	             -- el binario tiene que estar tal cualcomo en la unidad de control Uc
-			when "000001" => -- Add  
+			when "0001" => -- Add  
 				ALUResult <= x + y;
-			when "000010" => -- Sub
+			when "0010" => -- Sub
 				ALUResult <= x - y;
-			when "000011" => -- And
+			when "0011" => -- And
 				ALUResult <= x and y;
-			when "000100" => -- Nand
+			when "0100" => -- Nand
 				ALUResult <= x nand y;
-			when "000101" => -- Or
+			when "0101" => -- Or
 				ALUResult <= x or y;
-			when "000110" => -- Nor
+			when "0110" => -- Nor
 				ALUResult <= x nor y;
-			when "000111" => -- Xor
+			when "0111" => -- Xor
 				ALUResult <= x xor y;
-			when "001000" => -- Xnor
+			when "1000" => -- Xnor
 				ALUResult <= x xnor y;
 			when others => 
 				ALUResult <= (others=>'0');-- Si es diferente de los bits anteriores todo se vuelve 0

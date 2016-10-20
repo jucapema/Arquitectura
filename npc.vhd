@@ -11,7 +11,7 @@ end npc;
 architecture Behavioral of npc is
 
 begin
-
+--dice cual es la instruccion siguiente
 process (clk, reset, intNPC)
 	begin
 		if (reset = '1') then

@@ -24,7 +24,7 @@ architecture Behavioral of RegFile is
 
 	type ram is array (0 to 39) of std_logic_vector (31 downto 0);
 	signal registro : ram :=(others => x"00000000");
-
+--me guarda en el registro las operaciones 
 begin
 	process(reset,regfileSource1,regfileSource2,RegFileDesti,dtaToWrite)--clkFPGA)
 	begin

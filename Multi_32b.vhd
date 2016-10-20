@@ -20,12 +20,12 @@ end Multi_32b;
 architecture Behavioral of Multi_32b is
 
 begin
-
+--
 process (mul_int1,mul_int2, clk_mul)
 	begin
 	
 		if (clk_mul = '0') then
-			mul_out <= mul_int1;
+			mul_out <= mul_int1;-- entra int1 o int2
 		else
 			mul_out <= mul_int2;
 		end if;
